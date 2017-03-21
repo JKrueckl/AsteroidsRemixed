@@ -1,0 +1,7 @@
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\InputInterface\bin\Debug\InputInterface.dll
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\InputInterface\bin\Debug\InputInterface.pdb
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\InputInterface\bin\Debug\Microsoft.Xna.Framework.dll
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\InputInterface\bin\Debug\Microsoft.Xna.Framework.xml
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\InputInterface\obj\Debug\InputInterface.dll
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\InputInterface\obj\Debug\InputInterface.pdb
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\InputInterface\obj\Debug\InputInterfaceLib.csprojResolveAssemblyReference.cache

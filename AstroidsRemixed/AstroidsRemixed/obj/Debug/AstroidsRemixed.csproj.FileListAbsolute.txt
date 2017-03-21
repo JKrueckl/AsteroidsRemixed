@@ -1,0 +1,14 @@
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Debug\AstroidsRemixed.exe.config
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Debug\AstroidsRemixed.exe
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Debug\AstroidsRemixed.pdb
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Debug\InputInterface.dll
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Debug\Microsoft.Xna.Framework.dll
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Debug\InputInterface.pdb
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Debug\Microsoft.Xna.Framework.xml
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Debug\AstroidsRemixed.csprojResolveAssemblyReference.cache
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Debug\AstroidsRemixed.DLG_Main.resources
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Debug\AstroidsRemixed.Properties.Resources.resources
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Debug\AstroidsRemixed.csproj.GenerateResource.Cache
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Debug\AstroidsRemixed.exe
+c:\users\kruks\documents\visual studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Debug\AstroidsRemixed.pdb
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Debug\AstroidsRemixed.DLG_Debug.resources

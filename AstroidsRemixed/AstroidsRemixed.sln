@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstroidsRemixed", "AstroidsRemixed\AstroidsRemixed.csproj", "{FBD39824-C604-4EAF-860B-0D9C6F71195D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B8AB940F-0601-4880-9B9E-3791A165B79C} = {B8AB940F-0601-4880-9B9E-3791A165B79C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputInterfaceLib", "InputInterface\InputInterfaceLib.csproj", "{B8AB940F-0601-4880-9B9E-3791A165B79C}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBD39824-C604-4EAF-860B-0D9C6F71195D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD39824-C604-4EAF-860B-0D9C6F71195D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD39824-C604-4EAF-860B-0D9C6F71195D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD39824-C604-4EAF-860B-0D9C6F71195D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8AB940F-0601-4880-9B9E-3791A165B79C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8AB940F-0601-4880-9B9E-3791A165B79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8AB940F-0601-4880-9B9E-3791A165B79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8AB940F-0601-4880-9B9E-3791A165B79C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
