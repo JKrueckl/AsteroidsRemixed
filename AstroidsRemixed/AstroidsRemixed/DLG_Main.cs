@@ -34,7 +34,8 @@ namespace AstroidsRemixed
         WaveCalculator _wc;
 
         int _playerScore = 0;
-        int _playerLives = 3;   
+        int _playerLives = 3;
+        bool _starting = true; 
 
         // Player
         PlayerInfo _player = new PlayerInfo();
@@ -92,10 +93,10 @@ namespace AstroidsRemixed
             //_enemyTwo = new EnemyTwo(ClientRectangle);
 
             // Sound testing fun!
-            SoundPlayer lazer = new SoundPlayer();
-            lazer.SoundLocation = "Lazer.wav";
+            //SoundPlayer lazer = new SoundPlayer();
+            //lazer.SoundLocation = "Lazer.wav";
 
-            _sounds.Add("Lazer", lazer);
+            //_sounds.Add("Lazer", lazer);
 
             // Boss rock test
             //_testRock = new RockBoss(new PointF(300, 300), Rock.State.boss);
@@ -158,6 +159,8 @@ namespace AstroidsRemixed
 
                 _generatedBG = new BackgroundImg(ClientRectangle);
             }
+
+            _starting = false;
         }
 
         #endregion
@@ -167,14 +170,15 @@ namespace AstroidsRemixed
         {
             if(_playerLives == 0)
             {
-                _ii = new InputInterface();
+                //_ii = new InputInterface();
                 UI_GameOver_Panel.Show();
                 UI_Menu_Panel.Show();
+                _starting = true;
             }
 
             if (_ii.Pause)
             {
-                UI_Pause_Panel.Show();
+                UI_Pause_Panel.Show();                
             }
             else
             {
@@ -191,7 +195,13 @@ namespace AstroidsRemixed
                 }
                 #endregion
 
-                UI_Pause_Panel.Hide();
+                if(_starting && _ii.Shoot)
+                {
+                    UI_B_Start_Click(null, null);
+                    _starting = false;
+                }                   
+
+                UI_Pause_Panel.Hide();               
 
                 using (BufferedGraphicsContext bgc = new BufferedGraphicsContext())
                 {
@@ -204,221 +214,236 @@ namespace AstroidsRemixed
                             _generatedBG.imgPlanets.ForEach(x => bg.Graphics.FillPath(new SolidBrush(x.planetCol), x.GetPath()));
                         // ------------------------
 
-                        // draw all dead shapes (collisions)
-                        //foreach (var hit in _deadShapes)
+                        if (!_starting)
+                        {
+                            // draw all dead shapes (collisions)
+                            //foreach (var hit in _deadShapes)
                             //bg.Graphics.FillRegion(new SolidBrush(Color.Yellow), hit);
 
-                        #region Player Calcs
+                            #region Player Calcs
 
-                        // player boost
-                        if (_player._boosting)
-                            _player._particles.Add(new ExhaustParticle(_player));
-                        foreach (ExhaustParticle ep in _player._particles)
-                        {
-                            ep.Tick();
-                            bg.Graphics.FillPath(new SolidBrush(ep.myColor), ep.GetPath());
-                        }
+                            // player boost
+                            if (_player._boosting)
+                                _player._particles.Add(new ExhaustParticle(_player));
+                            foreach (ExhaustParticle ep in _player._particles)
+                            {
+                                ep.Tick();
+                                bg.Graphics.FillPath(new SolidBrush(ep.myColor), ep.GetPath());
+                            }
 
-                        // player Bullets
-                        if (_player._shooting)
-                        {
-                            _player._bullets.Add(new BulletParticle(_player));
-                            //_sounds["Lazer"].Play();
-                        }
-                        foreach (BulletParticle bp in _player._bullets)
-                        {
-                            bp.Tick();
-                            bg.Graphics.FillPath(new SolidBrush(BulletParticle.myColor), bp.GetPath());
-                        }
+                            // player Bullets
+                            if (_player._shooting)
+                            {
+                                _player._bullets.Add(new BulletParticle(_player));
+                                //_sounds["Lazer"].Play();
+                            }
+                            foreach (BulletParticle bp in _player._bullets)
+                            {
+                                bp.Tick();
+                                bg.Graphics.FillPath(new SolidBrush(BulletParticle.myColor), bp.GetPath());
+                            }
 
-                        _player.Tick(_ii);
-                        bg.Graphics.FillPath(new SolidBrush(Color.Red), _player.GetPath());
+                            _player.Tick(_ii, ClientRectangle);
+                            bg.Graphics.FillPath(new SolidBrush(Color.FromArgb(_player._alpha, Color.Red)), _player.GetPath());
 
-                        #endregion
+                            #endregion
 
-                        // All rocks
-                        foreach (Rock r in _rockContainer)
-                        {
-                            r.Tick(ClientSize);
-                            r.Render(bg, ClientSize);
-                        }
+                            // All rocks
+                            foreach (Rock r in _rockContainer)
+                            {
+                                r.Tick(ClientSize);
+                                r.Render(bg, ClientSize);
+                            }
 
-                        #region Enemy One & Enemy Two & Boss calc example
-                        // ~~~~ Enemy one
-                        //_enemyOne.Tick(_player);
-                        //if (_enemyOne._shooting)
-                        //    _enemyOne._bullets.Add(new BulletParticle(_enemyOne));
+                            #region Enemy One & Enemy Two & Boss calc example
+                            //~~~~Enemy one
+                            //_enemyOne.Tick(_player);
+                            //if (_enemyOne._shooting)
+                            //    _enemyOne._bullets.Add(new BulletParticle(_enemyOne));
 
-                        //foreach (BulletParticle bp in _enemyOne._bullets)
-                        //{
-                        //    bp.Tick();
-                        //    bg.Graphics.FillPath(new SolidBrush(BulletParticle.myColor), bp.GetPath());
-                        //}
-                        //bg.Graphics.FillPath(new SolidBrush(Color.Blue), _enemyOne.GetPath());
-                        //CleanUp(_enemyOne);
-
-
-                        // ~~~~ Enemy two
-                        //_enemyTwo.Tick(_player);
-                        //if (_enemyTwo._shooting)
-                        //{
-                        //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 0));
-                        //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 60));
-                        //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 120));
-                        //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 180));
-                        //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 240));
-                        //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 300));
-                        //}
-                        //foreach (BulletParticle bp in _enemyTwo._bullets)
-                        //{
-                        //    bp.Tick();
-                        //    bg.Graphics.FillPath(new SolidBrush(BulletParticle.myColor), bp.GetPath());
-                        //}
-                        //bg.Graphics.FillPath(new SolidBrush(Color.Green), _enemyTwo.GetPath());
-                        //CleanUp(_enemyTwo);
+                            //foreach (BulletParticle bp in _enemyOne._bullets)
+                            //{
+                            //    bp.Tick();
+                            //    bg.Graphics.FillPath(new SolidBrush(BulletParticle.myColor), bp.GetPath());
+                            //}
+                            //bg.Graphics.FillPath(new SolidBrush(Color.Blue), _enemyOne.GetPath());
+                            //CleanUp(_enemyOne);
 
 
-                        // ~~~~ BOSS ROCK
-                        //_testRock.Tick(ClientSize);
-                        //_testRock.Render(bg);
-                        #endregion
+                            //// ~~~~ Enemy two
+                            //_enemyTwo.Tick(_player);
+                            //if (_enemyTwo._shooting)
+                            //{
+                            //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 0));
+                            //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 60));
+                            //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 120));
+                            //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 180));
+                            //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 240));
+                            //    _enemyTwo._bullets.Add(new BulletParticle(_enemyTwo, 300));
+                            //}
+                            //foreach (BulletParticle bp in _enemyTwo._bullets)
+                            //{
+                            //    bp.Tick();
+                            //    bg.Graphics.FillPath(new SolidBrush(BulletParticle.myColor), bp.GetPath());
+                            //}
+                            //bg.Graphics.FillPath(new SolidBrush(Color.Green), _enemyTwo.GetPath());
+                            //CleanUp(_enemyTwo);
 
-                        #region UI
 
-                        bg.Graphics.DrawString("Wave: " + _waveNumber, new Font("Times New Roman", 24), new SolidBrush(Color.Red), 10, 10);
-                        bg.Graphics.DrawString("Score: " + _playerScore, new Font("Times New Roman", 24), new SolidBrush(Color.Red), 10, 44);
+                            // ~~~~ BOSS ROCK
+                            //_testRock.Tick(ClientSize);
+                            //_testRock.Render(bg);
+                            #endregion
 
-                        for(int i = 0; i < _playerLives; i++)
-                        {
-                            bg.Graphics.FillPath(new SolidBrush(Color.Red), _player.GetPathForLifeSymbol( 25 + (50* i), 110));
-                        }
+                            #region UI
 
-                        #endregion
+                            bg.Graphics.DrawString("Wave: " + _waveNumber, new Font("Times New Roman", 24), new SolidBrush(Color.Red), 10, 10);
+                            bg.Graphics.DrawString("Score: " + _playerScore, new Font("Times New Roman", 24), new SolidBrush(Color.Red), 10, 44);
 
-                        foreach(BulletParticle bp in _player._bullets)
-                        {
-                            List<Rock> possibleHits = (
-                                from shape in _rockContainer
-                                where Math.Sqrt(Math.Pow(Math.Abs(shape.Pos.X - bp.location.X), 2) + Math.Pow(Math.Abs(shape.Pos.Y - bp.location.Y), 2)) < 10000 // MIrroring?????????
+                            for (int i = 0; i < _playerLives; i++)
+                            {
+                                bg.Graphics.FillPath(new SolidBrush(Color.Red), _player.GetPathForLifeSymbol(25 + (50 * i), 110));
+                            }
+
+                            #endregion
+
+                            foreach (BulletParticle bp in _player._bullets)
+                            {
+                                List<Rock> possibleHits = (
+                                    from shape in _rockContainer
+                                    where Math.Sqrt(Math.Pow(Math.Abs(shape.Pos.X - bp.location.X), 2) + Math.Pow(Math.Abs(shape.Pos.Y - bp.location.Y), 2)) < 10000 // Mirroring?????????
                                 select shape).ToList();
 
-                            // itterate through possible hit list
-                            for (int i = 0; i < possibleHits.Count(); i++)
-                            {
-                                // regions of intersections
-                                Region r1 = new Region(possibleHits[i].GetPath(ClientSize));
-                                Region r2 = new Region(bp.GetPath());
-
-                                // create intersection of the two shapes that are close
-                                r1.Intersect(r2);
-
-                                // they hit
-                                if (!r1.IsEmpty(CreateGraphics()))
+                                // itterate through possible hit list
+                                for (int i = 0; i < possibleHits.Count(); i++)
                                 {
-                                    // add region to linked list of hits
-                                    //_deadShapes.AddFirst(r1);
+                                    // regions of intersections
+                                    Region r1 = new Region(possibleHits[i].GetPath(ClientSize));
+                                    Region r2 = new Region(bp.GetPath());
 
-                                    if (possibleHits[i] is RockBoss && (possibleHits[i] as RockBoss)._health > 1)
-                                        (possibleHits[i] as RockBoss)._health--;
-                                    else
-                                        possibleHits[i].IsMarkedForDeath = true;
+                                    // create intersection of the two shapes that are close
+                                    r1.Intersect(r2);
 
-                                    bp.KILLMENOW = true;
+                                    // they hit
+                                    if (!r1.IsEmpty(CreateGraphics()))
+                                    {
+                                        // add region to linked list of hits
+                                        //_deadShapes.AddFirst(r1);
+
+                                        if (possibleHits[i] is RockBoss && (possibleHits[i] as RockBoss)._health > 1)
+                                            (possibleHits[i] as RockBoss)._health--;
+                                        else
+                                            possibleHits[i].IsMarkedForDeath = true;
+
+                                        bp.KILLMENOW = true;
+                                    }
                                 }
                             }
-                        }
 
-                        if (!UI_Menu_Panel.Visible)
-                        {
-                            List<Rock> possiblePlayerHits = (
-                            from shape in _rockContainer
-                            where Math.Sqrt(Math.Pow(Math.Abs(shape.Pos.X - _player._pos.X), 2) + Math.Pow(Math.Abs(shape.Pos.Y - _player._pos.Y), 2)) < 250 // boss is big (might be a problem)
+                            if (!UI_Menu_Panel.Visible)
+                            {
+                                List<Rock> possiblePlayerHits = (
+                                from shape in _rockContainer
+                                where Math.Sqrt(Math.Pow(Math.Abs(shape.Pos.X - _player._pos.X), 2) + Math.Pow(Math.Abs(shape.Pos.Y - _player._pos.Y), 2)) < 250 // boss is big (might be a problem)
                             select shape).ToList();
 
-                            // itterate through possible hit list
-                            for (int i = 0; i < possiblePlayerHits.Count(); i++)
-                            {
-                                // regions of intersections
-                                Region r1 = new Region(possiblePlayerHits[i].GetPath(ClientSize));
-                                Region r2 = new Region(_player.GetPath());
-
-                                // create intersection of the two shapes that are close
-                                r1.Intersect(r2);
-
-                                // they hit
-                                if (!r1.IsEmpty(CreateGraphics()))
+                                // itterate through possible hit list
+                                for (int i = 0; i < possiblePlayerHits.Count(); i++)
                                 {
-                                    possiblePlayerHits[i].IsMarkedForDeath = true;
-                                    _player._gotHit = true;
+                                    if ((possiblePlayerHits[i]._alpha == 255) && (_player._alpha == 255))
+                                    {
+                                        // regions of intersections
+                                        Region r1 = new Region(possiblePlayerHits[i].GetPath(ClientSize));
+                                        Region r2 = new Region(_player.GetPath());
+
+                                        // create intersection of the two shapes that are close
+                                        r1.Intersect(r2);
+
+                                        // they hit
+                                        if (!r1.IsEmpty(CreateGraphics()))
+                                        {
+                                            possiblePlayerHits[i].IsMarkedForDeath = true;
+                                            _player._gotHit = true;
+                                        }
+                                    }
                                 }
                             }
-                        }
-                        
 
-                        List<Rock> SmallerRocksToAdd = new List<Rock>();
 
-                        //_rockContainer.RemoveAll(x => x.IsMarkedForDeath);       
-                        foreach(Rock r in _rockContainer)
-                        {
-                            // 25, 45, 65
-                            if (r.IsMarkedForDeath)
-                            {                                
-                                if (r._tileSize == (int)Rock.State.medium)
-                                {
-                                    SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.small));
-                                    SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.small));
-                                    SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.small));
+                            List<Rock> SmallerRocksToAdd = new List<Rock>();
 
-                                    _playerScore += 250;
-                                }
-                                else if (r._tileSize == (int)Rock.State.large)
-                                {
-                                    SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.medium));
-                                    SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.medium));
-
-                                    _playerScore += 500;
-                                }
-                                else
-                                {
-                                    _playerScore += 100;
-                                }                                                             
-                            } 
-                        }
-
-                        CleanUp(_player);
-                     
-                        _rockContainer.RemoveAll(x => x.IsMarkedForDeath );
-                        SmallerRocksToAdd.ForEach(x => _rockContainer.Add(x));
-
-                        if (_player._gotHit)
-                        {
-                            if(_playerLives > 0)
+                            //_rockContainer.RemoveAll(x => x.IsMarkedForDeath);       
+                            foreach (Rock r in _rockContainer)
                             {
-                                _playerLives--;
+                                // 25, 45, 65
+                                if (r.IsMarkedForDeath)
+                                {
+                                    if (r._tileSize == (int)Rock.State.medium)
+                                    {
+                                        SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.small));
+                                        SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.small));
+                                        SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.small));
+
+                                        _playerScore += 250;
+                                    }
+                                    else if (r._tileSize == (int)Rock.State.large)
+                                    {
+                                        SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.medium));
+                                        SmallerRocksToAdd.Add(new Rock(r.Pos, Rock.State.medium));
+
+                                        _playerScore += 500;
+                                    }
+                                    else
+                                    {
+                                        _playerScore += 100;
+                                    }
+                                }
                             }
+
+                            CleanUp(_player);
+
+                            _rockContainer.RemoveAll(x => x.IsMarkedForDeath);
+                            SmallerRocksToAdd.ForEach(x => _rockContainer.Add(x));
+
+                            if (_player._gotHit)
+                            {
+                                if (_playerLives > 0)
+                                {
+                                    _playerLives--;
+                                    _player.ResetOnHit();
+                                }
+                            }
+
                         }
 
                         bg.Render();
                     }
                 }
 
-                if (_rockContainer.Count == 0)
+                if (!_starting)
                 {
-                    _playerScore += _waveNumber * 1000;
 
-                    _wc = new WaveCalculator(_waveNumber++);
-
-                    if (_wc.BossWave)
+                    if (_rockContainer.Count == 0)
                     {
-                        _rockContainer.Add(new RockBoss(new PointF(_rnd.Next(0, ClientRectangle.Width), _rnd.Next(0, ClientRectangle.Height)), Rock.State.boss));
+                        _playerScore += _waveNumber * 1000;
+                        _playerLives++;
+
+                        _wc = new WaveCalculator(_waveNumber++);
+
+                        if (_wc.BossWave)
+                        {
+                            _rockContainer.Add(new RockBoss(new PointF(_rnd.Next(0, ClientRectangle.Width), _rnd.Next(0, ClientRectangle.Height)), Rock.State.boss));
+                        }
+                        else
+                        {
+                            for (int i = 0; i < _wc.Rocks; i++)
+                                _rockContainer.Add(new Rock(new PointF(_rnd.Next(0, ClientRectangle.Width), _rnd.Next(0, ClientRectangle.Height)), Rock.State.large));
+                        }
                     }
-                    else
-                    {
-                        for (int i = 0; i < _wc.Rocks; i++)
-                            _rockContainer.Add(new Rock(new PointF(_rnd.Next(0, ClientRectangle.Width), _rnd.Next(0, ClientRectangle.Height)), Rock.State.large));
-                    }              
                 }
             }
+
+            
         }
 
         // Debug Method (OutDated)

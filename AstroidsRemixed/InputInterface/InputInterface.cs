@@ -68,10 +68,12 @@ namespace InputInterfaceLib
                     Right = (GamePad.GetState(PlayerIndex.One)).IsButtonDown(Buttons.LeftThumbstickRight);
                     Up = (GamePad.GetState(PlayerIndex.One)).IsButtonDown(Buttons.RightTrigger);
                     Shoot = (GamePad.GetState(PlayerIndex.One)).IsButtonDown(Buttons.A);
-                    Pause = (GamePad.GetState(PlayerIndex.One)).IsButtonDown(Buttons.Start);
+                    //Pause = (GamePad.GetState(PlayerIndex.One)).IsButtonDown(Buttons.Start);
 
                     if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start) && !PreviousState.IsButtonDown(Buttons.Start))
                         Pause = !Pause;
+
+                    PreviousState = GamePad.GetState(PlayerIndex.One);
                 }
 
                 MuteKeyboard = (GamePad.GetState(PlayerIndex.One).IsConnected);

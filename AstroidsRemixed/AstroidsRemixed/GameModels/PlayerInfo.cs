@@ -31,6 +31,7 @@ namespace AstroidsRemixed.GameModels
         public bool _boosting = false;
         public bool _shooting = false;
         public bool _gotHit = false;
+        public int _alpha = 0;
 
         static PlayerInfo()
         {
@@ -115,7 +116,20 @@ namespace AstroidsRemixed.GameModels
             return gpClone;
         }
 
-        public void Tick(InputInterface ii)
+        public void ResetOnHit()
+        {
+            _rotation = 0f;
+            _vel = 0f;
+
+            _pos = new PointF(500, 500);
+            _currentRot = 180f;
+            _boosting = false;
+            _shooting = false;
+            _gotHit = false;
+            _alpha = 0;
+        }
+
+        public void Tick(InputInterface ii, Rectangle screen)
         {
             _rotation = (ii.Left ? -4f : 0) + (ii.Right ? 4f : 0);
 
@@ -138,21 +152,40 @@ namespace AstroidsRemixed.GameModels
                 cycleNum = 0;
                 _shooting = false;
                 Console.WriteLine("Gave up / reset");
-            }
-                
+            }              
 
             if (ii.Up)
                 _vel = 8f;
             else if (_vel > 0)
                 _vel -= (_vel * 0.05f);
 
-            _pos.X += -(float)Math.Sin((_currentRot * Math.PI) / 180) * _vel;
-            _pos.Y += (float)Math.Cos((_currentRot * Math.PI) / 180) * _vel;
+            if (_pos.X < screen.Width && _pos.X > 0)
+                _pos.X += -(float)Math.Sin((_currentRot * Math.PI) / 180) * _vel;
+            else if (_pos.X > screen.Width)
+                _pos.X = _pos.X - 2;
+            else
+                _pos.X = _pos.X + 2;
+
+            if (_pos.Y < screen.Height && _pos.Y > 0)
+                _pos.Y += (float)Math.Cos((_currentRot * Math.PI) / 180) * _vel;
+            else if (_pos.Y > screen.Height)
+                _pos.Y = _pos.Y - 2;
+            else
+                _pos.Y = _pos.Y + 2;
 
             if (_currentRot >= 360 || _currentRot <= -360)
                 _currentRot = 0;
             else
-                _currentRot += _rotation;             
+                _currentRot += _rotation;
+
+            if (_alpha < 254)
+            {
+                _alpha += 2;
+            }
+            else if(_alpha == 254)
+            {
+                _alpha++;
+            }        
         }
     }
 }

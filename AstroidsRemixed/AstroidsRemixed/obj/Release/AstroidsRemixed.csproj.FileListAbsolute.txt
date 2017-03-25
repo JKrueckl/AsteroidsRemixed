@@ -1,0 +1,13 @@
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Release\AstroidsRemixed.exe.config
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Release\AstroidsRemixed.exe
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Release\AstroidsRemixed.pdb
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Release\InputInterface.dll
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Release\Microsoft.Xna.Framework.dll
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Release\InputInterface.pdb
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\bin\Release\Microsoft.Xna.Framework.xml
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Release\AstroidsRemixed.DLG_Debug.resources
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Release\AstroidsRemixed.DLG_Main.resources
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Release\AstroidsRemixed.Properties.Resources.resources
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Release\AstroidsRemixed.csproj.GenerateResource.Cache
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Release\AstroidsRemixed.exe
+C:\Users\kruks\Documents\Visual Studio 2015\Projects\AstroidsRemixed\AstroidsRemixed\obj\Release\AstroidsRemixed.pdb

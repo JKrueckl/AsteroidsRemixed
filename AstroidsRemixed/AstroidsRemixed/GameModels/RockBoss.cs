@@ -15,7 +15,7 @@ namespace AstroidsRemixed.GameModels
 
         public override void Render(BufferedGraphics bg, Size clientSize)
         {
-            bg.Graphics.FillPath(new SolidBrush(Color.White), GetPath(clientSize));
+            bg.Graphics.FillPath(new SolidBrush(Color.FromArgb(_alpha, Color.White)), GetPath(clientSize));
 
             // Draw maximum size the shape can be (visual TILESIZE)
             bg.Graphics.DrawRectangle(new Pen(Color.LimeGreen), new Rectangle((int)Pos.X - _health * 5, (int)Pos.Y + _tileSize, _health * 10, 10));

@@ -36,6 +36,9 @@ namespace AstroidsRemixed.GameModels
         // position in world space
         public PointF Pos { get; set; }
 
+        // Alpha (Used mostly for invuln frames)
+        public int _alpha;
+
         public GraphicsPath _model = new GraphicsPath();
 
         /// <summary>
@@ -55,6 +58,8 @@ namespace AstroidsRemixed.GameModels
 
             _xSpeed += _rand.Next(6);
             _ySpeed += _rand.Next(6);
+
+            _alpha = 0;
         }
 
         /// <summary>
@@ -135,10 +140,10 @@ namespace AstroidsRemixed.GameModels
         /// <param name="bg"> current buffer </param>
         public virtual void Render(BufferedGraphics bg, Size clientSize)
         {
-            bg.Graphics.FillPath(new SolidBrush(Color.White), GetPath(clientSize));
+            bg.Graphics.FillPath(new SolidBrush(Color.FromArgb(_alpha, Color.White)), GetPath(clientSize));
 
             // Draw maximum size the shape can be (visual TILESIZE)
-            bg.Graphics.DrawEllipse(new Pen(Color.LimeGreen), new RectangleF(Pos.X - _tileSize, Pos.Y - _tileSize, _tileSize * 2, _tileSize * 2));
+            //bg.Graphics.DrawEllipse(new Pen(Color.LimeGreen), new RectangleF(Pos.X - _tileSize, Pos.Y - _tileSize, _tileSize * 2, _tileSize * 2));
         }
 
         /// <summary>
@@ -165,6 +170,15 @@ namespace AstroidsRemixed.GameModels
 
             // Rotate shape by delta
             _rotation += _rotationDelta;
+
+            // Increment up to 254
+            if(_alpha < 254)
+                _alpha += 2;
+            // Get to 255 to prevent the renderer from having to do a alpha calculation ? Might be b.s. but it makes you think right
+            else if(_alpha == 254)
+            {
+                _alpha++;
+            }
         }
 
         /// <summary>
